@@ -27,8 +27,8 @@ pipeline {
          SONAR_URL= "http://localhost:9090"
        } */
     steps {
-      withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.login=${SONAR_AUTH_TOKEN} -Dsonar.host.url=http://docker.internal"
+      withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
+sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.token=${SONAR_AUTH_TOKEN} -Dsonar.host.url=http://host.docker.internal:9000"
       }
     }
 }
@@ -54,7 +54,7 @@ sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.s
         }
        steps
        {
-         withCredentials([string(credentialsId: 'github_token', variable: 'GITHUB_TOKEN')]) {
+         withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
                         sh """
                         git config user.email "302735558+Vageesh1998@users.noreply.github.com" 
                         git config user.name "Vageesh1998"
