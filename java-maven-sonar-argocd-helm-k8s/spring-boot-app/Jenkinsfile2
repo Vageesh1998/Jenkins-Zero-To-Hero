@@ -1,7 +1,7 @@
 pipeline {
   agent  {
     docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
+      image 'maven-java17-agent'
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' //mount docker socket to access the host machines docoker daemon
       //Docker Daemon Socket (docker.sock).It is not a regular text file or a folder; it is a live communications pipeline
       //(a Unix domain socket) that acts as the entry door to your host computer's Docker engine.
@@ -28,7 +28,7 @@ pipeline {
        } */
     steps {
       withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
-sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.1.2184:sonar -Dsonar.token=${SONAR_AUTH_TOKEN} -Dsonar.host.url=http://host.docker.internal:9000"
+sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar -Dsonar.token=${SONAR_AUTH_TOKEN} -Dsonar.host.url=http://host.docker.internal:9000"
       }
     }
 }
