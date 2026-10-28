@@ -34,7 +34,7 @@ sh "cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.s
 }
    stage('Build image and push the image') {
    environment  {
-    DOCKER_IMAGE= "abhishekf5/ultimate-cicd:${BUILD_NUMBER}"
+    DOCKER_IMAGE= "vageeshhiremath/ultimate-cicd:${BUILD_NUMBER}"
     REGISTRY_CREDENTIALS= credentials('dockerhub-credentials')
    }
    steps {
